@@ -1,1 +1,31 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ver XML en HTML</title>
+  <style>
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contenido del XML</h1>
+  <pre id="xml-content">Cargando XML...</pre>
+
+  <script>
+    fetch('data.xml') // 👈 XML en la misma carpeta
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('xml-content').textContent = text;
+      })
+      .catch(err => {
+        document.getElementById('xml-content').textContent = "Error al cargar el XML: " + err;
+      });
+  </script>
+</body>
+</html>
