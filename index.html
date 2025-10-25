@@ -18,14 +18,16 @@
   <pre id="xml-content">Cargando XML...</pre>
 
   <script>
-    fetch('data.xml')
-      .then(response => response.text())
-      .then(text => {
-        document.getElementById('xml-content').textContent = text;
-      })
-      .catch(err => {
-        document.getElementById('xml-content').textContent = "Error al cargar el XML: " + err;
-      });
-  </script>
+  const timestamp = new Date().getTime(); // genera número único
+  fetch(`data.xml?t=${timestamp}`)        // 👈 evita cache
+    .then(response => response.text())
+    .then(text => {
+      document.getElementById('xml-content').textContent = text;
+    })
+    .catch(err => {
+      document.getElementById('xml-content').textContent = "Error al cargar el XML: " + err;
+    });
+</script>
+
 </body>
 </html>
