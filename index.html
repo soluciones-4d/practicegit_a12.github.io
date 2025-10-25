@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Ver XML en HTML</title>
+  <title>Ver XML en HTML (sin caché)</title>
   <style>
     pre {
       background: #f4f4f4;
@@ -15,19 +14,20 @@
 </head>
 <body>
   <h1>XML</h1>
-  <pre id="xml-content">Cargando fichero XML...</pre>
+  <pre id="xml-content">Cargando XML...</pre>
 
   <script>
-  const timestamp = new Date().getTime(); // genera número único
-  fetch(`data.xml?t=${timestamp}`)       
-    .then(response => response.text())
-    .then(text => {
-      document.getElementById('xml-content').textContent = text;
-    })
-    .catch(err => {
-      document.getElementById('xml-content').textContent = "Error al cargar el XML: " + err;
-    });
-</script>
+    // 🚫 Evitar cache añadiendo timestamp
+    const xmlUrl = `data.xml?t=${Date.now()}`;
 
+    fetch(xmlUrl, { cache: "no-store" })
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('xml-content').textContent = text;
+      })
+      .catch(err => {
+        document.getElementById('xml-content').textContent = "Error al cargar el XML: " + err;
+      });
+  </script>
 </body>
 </html>
