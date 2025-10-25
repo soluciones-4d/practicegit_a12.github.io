@@ -15,11 +15,11 @@
 </head>
 <body>
   <h1>XML</h1>
-  <pre id="xml-content">Cargando XML...</pre>
+  <pre id="xml-content">Cargando fichero XML...</pre>
 
   <script>
   const timestamp = new Date().getTime(); // genera número único
-  fetch(`data.xml?t=${timestamp}`)        // 👈 evita cache
+  fetch(`data.xml?t=${timestamp}`)       
     .then(response => response.text())
     .then(text => {
       document.getElementById('xml-content').textContent = text;
