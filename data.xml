@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<productos>
-  <producto>
-    <id>1</id>
-    <nombre>Monitor 24 pulgadas</nombre>
-    <precio>149.99</precio>
-  </producto>
-  <producto>
-    <id>2</id>
-    <nombre>Teclado mecánico</nombre>
-    <precio>89.99</precio>
-  </producto>
-</productos>
+<root>
+    <mensaje>Hola desde Python 🚀</mensaje>
+</root>
