@@ -18,7 +18,7 @@
   <pre id="xml-content">Cargando XML...</pre>
 
   <script>
-    fetch('data.xml') // 👈 XML en la misma carpeta
+    fetch('data.xml')
       .then(response => response.text())
       .then(text => {
         document.getElementById('xml-content').textContent = text;
