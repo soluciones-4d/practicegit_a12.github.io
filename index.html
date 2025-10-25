@@ -18,7 +18,7 @@
 
   <script>
     // 🚫 Evitar cache añadiendo timestamp
-    const xmlUrl = `data.xml?t=${Date.now()}`;
+    const xmlUrl = `estacio.xml?t=${Date.now()}`;
 
     fetch(xmlUrl, { cache: "no-store" })
       .then(response => response.text())
