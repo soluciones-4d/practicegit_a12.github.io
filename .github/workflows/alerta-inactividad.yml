@@ -1,0 +1,42 @@
+name: Alerta de inactividad de commits
+
+on:
+  schedule:
+    # Ejecuta cada 20 minutos entre 6:00 y 22:00 UTC
+    - cron: "*/20 6-23 * * *"
+  workflow_dispatch: # permite ejecución manual
+
+jobs:
+  check-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Hacer checkout del repo
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: Comprobar commits recientes
+      - name: Comprobar commits recientes
+        id: check_commits
+        run: |
+          # Verifica si hubo commits en los últimos 20 minutos
+          if git log --since="20 minutes ago" --oneline | grep .; then
+            echo "commits_recentes=true" >> $GITHUB_ENV
+          else
+            echo "commits_recentes=false" >> $GITHUB_ENV
+          fi
+
+      # Paso 3: Enviar alerta si no hubo commits
+      - name: Enviar alerta por Gmail
+        if: env.commits_recentes == 'false'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_PASS }}
+          subject: "⚠️ Alerta: Sin commits recientes"
+          body: "No se han detectado commits en los últimos 20 minutos."
+          to: "tucorreo@ejemplo.com"
+          from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
+
