@@ -1,0 +1,21 @@
+name: Test envío Gmail
+
+on:
+  workflow_dispatch:  # permite ejecutar manualmente
+
+jobs:
+  test-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enviar correo de prueba
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_PASS }}
+          subject: "Correo de prueba desde GitHub Actions"
+          body: "¡Hola! Esto es un correo de prueba enviado desde GitHub Actions usando Gmail."
+          to: "it.alerts.notifications@gmail.com"
+          from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
+
