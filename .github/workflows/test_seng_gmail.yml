@@ -16,6 +16,6 @@ jobs:
           password: ${{ secrets.GMAIL_PASS }}
           subject: "Correo de prueba desde GitHub Actions"
           body: "¡Hola! Esto es un correo de prueba enviado desde GitHub Actions usando Gmail."
-          to: "it.alerts.notifications@gmail.com"
+          to: "lookintothebug@gmail.com"
           from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
 
