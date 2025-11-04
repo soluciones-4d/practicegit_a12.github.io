@@ -39,5 +39,5 @@ jobs:
           password: ${{ secrets.GMAIL_PASS }}
           subject: "Alerta: No hay commits recientes"
           body: "No se detectaron commits en la última hora."
-          to: ${{ secrets.MY_EMAIL }}
+          to: ${{ secrets.ALERT_EMAIL }}
           from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
