@@ -2,20 +2,17 @@ name: Alerta de inactividad de commits
 
 on:
   schedule:
-    # Ejecuta cada 60 minutos en punto
-    - cron: "0 * * * *"
-  workflow_dispatch:  # permite ejecución manual
+    - cron: "0 5-0 * * *"
+  workflow_dispatch:
 
 jobs:
   check-commits:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Hacer checkout del repo
       - name: Checkout del repositorio
         uses: actions/checkout@v4
 
-      # Paso 2: Comprobar commits recientes
       - name: Comprobar commits recientes
         id: check_commits
         run: |
@@ -23,13 +20,14 @@ jobs:
           recent_commits=$(git log --since="60 minutes ago" --oneline)
           if [ -n "$recent_commits" ]; then
             echo "commits_recentes=true" >> $GITHUB_ENV
+            echo "::set-output name=no_commits::false"
           else
             echo "commits_recentes=false" >> $GITHUB_ENV
+            echo "::set-output name=no_commits::true"
           fi
 
-      # Paso 3: Enviar alerta si no hubo commits
       - name: Enviar alerta si no hay commits recientes
-        if: env.commits_recentes == 'false'
+        if: steps.check_commits.outputs.no_commits == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
