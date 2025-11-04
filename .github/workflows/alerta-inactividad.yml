@@ -2,7 +2,7 @@ name: Alerta de inactividad de commits
 
 on:
   schedule:
-    # Ejecuta cada 60 minutos
+    # Ejecuta cada 60 minutos en punto
     - cron: "0 * * * *"
   workflow_dispatch:  # permite ejecución manual
 
@@ -19,8 +19,9 @@ jobs:
       - name: Comprobar commits recientes
         id: check_commits
         run: |
-          # Verifica si hubo commits en la última hora
-          if git log --since="60 minutes ago" --oneline | grep .; then
+          echo "Buscando commits de la última hora..."
+          recent_commits=$(git log --since="60 minutes ago" --oneline)
+          if [ -n "$recent_commits" ]; then
             echo "commits_recentes=true" >> $GITHUB_ENV
           else
             echo "commits_recentes=false" >> $GITHUB_ENV
