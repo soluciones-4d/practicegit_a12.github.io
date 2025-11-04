@@ -28,9 +28,9 @@ jobs:
             echo "commits_recentes=false" >> $GITHUB_ENV
             echo "no_commits=true" >> $GITHUB_OUTPUT
           fi
-
+ 
       - name: Enviar alerta si no hay commits recientes
-        if: needs.check-commits.outputs.no_commits == 'true'
+        if: steps.check_commits.outputs.no_commits == 'true'
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
