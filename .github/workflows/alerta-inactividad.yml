@@ -2,9 +2,9 @@ name: Alerta de inactividad de commits
 
 on:
   schedule:
-    # Ejecuta cada 20 minutos entre 6:00 y 22:00 UTC
-    - cron: "*/20 6-23 * * *"
-  workflow_dispatch: # permite ejecución manual
+    # Ejecuta cada 60 minutos
+    - cron: "0 * * * *"
+  workflow_dispatch:  # permite ejecución manual
 
 jobs:
   check-commits:
@@ -19,8 +19,8 @@ jobs:
       - name: Comprobar commits recientes
         id: check_commits
         run: |
-          # Verifica si hubo commits en los últimos 20 minutos
-          if git log --since="20 minutes ago" --oneline | grep .; then
+          # Verifica si hubo commits en la última hora
+          if git log --since="60 minutes ago" --oneline | grep .; then
             echo "commits_recentes=true" >> $GITHUB_ENV
           else
             echo "commits_recentes=false" >> $GITHUB_ENV
@@ -35,8 +35,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.GMAIL_USER }}
           password: ${{ secrets.GMAIL_PASS }}
-          subject: "⚠️ Alerta: Sin commits recientes"
-          body: "No se han detectado commits en los últimos 20 minutos."
-          to: "it.alerts.notifications@gmail.com"
+          subject: "⚠️ Alerta: No hubo commits en la última hora"
+          body: "No se han detectado commits en la última hora en el repositorio."
+          to: ${{ secrets.ALERT_EMAIL }}
           from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
 
