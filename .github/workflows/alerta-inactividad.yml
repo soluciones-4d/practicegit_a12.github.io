@@ -37,7 +37,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.GMAIL_USER }}
           password: ${{ secrets.GMAIL_PASS }}
-          subject: "Alerta: No hay commits recientes"
-          body: "No se detectaron commits en la última hora."
+          subject: " L’aplicació TEMPS no funciona correctament."
+          body: "No s’han detectat commits recents. L’aplicació TEMPS no funciona correctament. No s’ha generat cap fitxer XML des de fa  mes de una hora a GitHub ."
           to: ${{ secrets.ALERT_EMAIL }}
           from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
