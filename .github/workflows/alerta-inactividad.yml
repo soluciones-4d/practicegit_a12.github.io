@@ -3,7 +3,7 @@ name: Alerta de inactividad de commits
 on:
   schedule:
     # Cada hora entre 05:00 y 23:59 hora de España (CET)
-    - cron: "0 4-22 * * *"  # UTC
+    - cron: "0 8-22 * * *"  # UTC
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
         id: check_commits
         run: |
           echo "Buscando commits de la última hora..."
-          recent_commits=$(git log --since="60 minutes ago" --oneline)
+          recent_commits=$(git log --since="5 hours ago" --oneline)
           if [ -n "$recent_commits" ]; then
             echo "commits_recentes=true" >> $GITHUB_ENV
             echo "no_commits=false" >> $GITHUB_OUTPUT
