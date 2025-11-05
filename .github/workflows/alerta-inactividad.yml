@@ -40,4 +40,4 @@ jobs:
           subject: " L’aplicació TEMPS no funciona correctament."
           body: "No s’han detectat commits recents. L’aplicació TEMPS no funciona correctament. No s’ha generat cap fitxer XML des de fa  mes de una hora a GitHub ."
           to: ${{ secrets.ALERT_EMAIL }}
-          from: "GitHub Bot <${{ secrets.GMAIL_USER }}>"
+          from: "GitHub Temps Bot <${{ secrets.GMAIL_USER }}>"
