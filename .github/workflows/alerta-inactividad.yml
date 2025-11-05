@@ -3,7 +3,7 @@ name: Alerta de inactividad de commits
 on:
   schedule:
     # Cada hora entre 08:00 y 20:00 hora de España (CET)
-    - cron: "0 8-16 * * *"  # UTC
+    - cron: "0 8-20 * * *"  # UTC
   workflow_dispatch:
 
 jobs:
